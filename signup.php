@@ -54,7 +54,7 @@
 <body>
     <div class="signup-container">
         <h2>Signup</h2>
-        <form action="signup.php" method="post">
+        <form action="demo.php" method="post">
             <label>Username:</label>
             <input type="text" name="username" required>
 
