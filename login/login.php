@@ -37,7 +37,7 @@
                         exit();
                     } elseif ($user['role'] == 'admin') {
                         // Redirect to admin dashboard with username passed
-                        header("Location: /swatiprograms/admin/dashboard.php?username=" . urlencode($user['username']));
+                        header("Location: /../dashboard.php?username=" . urlencode($user['username']));
                         exit();
                     }
                 } else {
@@ -67,3 +67,4 @@
     </div>
 </body>
 </html>
+gi
