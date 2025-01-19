@@ -2,66 +2,17 @@
 <html>
 <head>
     <title>Login Page</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(120deg, #89f7fe, #66a6ff);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .login-container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            width: 300px;
-        }
-        h2 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        label {
-            color: #555;
-            font-size: 14px;
-            display: block;
-            margin-bottom: 5px;
-        }
-        input, button {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
-        }
-        button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        .message {
-            text-align: center;
-            color: red;
-            font-size: 14px;
-        }
-    </style>
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
     <div class="login-container">
         <h2>Login</h2>
         
         <?php
-        include("connect.php");
+         include('../connect.php');
+
+        // Start session to store username
+        session_start();
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Get form data
@@ -76,12 +27,17 @@
                 // User exists, check password
                 $user = $result->fetch_assoc();
                 if (password_verify($password, $user['password'])) {
-                    // Login successful, redirect based on role
+                    // Store username in session for later use
+                    $_SESSION['username'] = $user['username'];
+
+                    // Redirect based on user role
                     if ($user['role'] == 'user') {
-                        header("Location: users/dashboard.php");
+                        // Redirect to user dashboard with username passed
+                        header("Location: /swatiprograms/users/dashboard.php?username=" . urlencode($user['username']));
                         exit();
                     } elseif ($user['role'] == 'admin') {
-                        header("Location: admin/dashboard.php");
+                        // Redirect to admin dashboard with username passed
+                        header("Location: /swatiprograms/admin/dashboard.php?username=" . urlencode($user['username']));
                         exit();
                     }
                 } else {
