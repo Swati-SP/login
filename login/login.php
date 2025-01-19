@@ -33,7 +33,7 @@
                     // Redirect based on user role
                     if ($user['role'] == 'user') {
                         // Redirect to user dashboard with username passed
-                        header("Location: /swatiprograms/users/dashboard.php?username=" . urlencode($user['username']));
+                        header("Location: /../users/dashboard.php?username=" . urlencode($user['username']));
                         exit();
                     } elseif ($user['role'] == 'admin') {
                         // Redirect to admin dashboard with username passed
